@@ -31,7 +31,7 @@ public class FeedAdapter extends ArrayAdapter<FeedItem> {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = mLayoutInflater.inflate(R.layout.row_blog, parent, false);
+            convertView = mLayoutInflater.inflate(R.layout.row_two_line, parent, false);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         } else {
@@ -46,8 +46,8 @@ public class FeedAdapter extends ArrayAdapter<FeedItem> {
     }
 
     class ViewHolder {
-        @InjectView(R.id.row_blog_primary_tv) TextView primaryTextView;
-        @InjectView(R.id.row_blog_secondary_tv) TextView secondaryTextView;
+        @InjectView(R.id.row_two_line_primary_tv) TextView primaryTextView;
+        @InjectView(R.id.row_two_line_secondary_tv) TextView secondaryTextView;
 
         public ViewHolder(View view) {
             ButterKnife.inject(this, view);

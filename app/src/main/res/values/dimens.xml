@@ -33,6 +33,7 @@
     <dimen name="dp_64">64dp</dimen>
     <!-- Title, List item -->
     <dimen name="dp_72">72dp</dimen>
+    <dimen name="dp_88">88dp</dimen>
 
     <!-- Typography
          http://www.google.com/design/spec/style/typography.html -->

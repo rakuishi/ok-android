@@ -4,13 +4,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_72"
+    android:layout_height="@dimen/dp_88"
     android:paddingRight="@dimen/dp_16"
     android:paddingLeft="@dimen/dp_16"
     android:gravity="center_vertical">
 
     <TextView
-        android:id="@+id/row_blog_primary_tv"
+        android:id="@+id/row_three_line_primary_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
@@ -18,13 +18,23 @@
         tools:text="Primary Text"/>
 
     <TextView
-        android:id="@+id/row_blog_secondary_tv"
+        android:id="@+id/row_three_line_secondary_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/row_blog_primary_tv"
+        android:layout_below="@+id/row_three_line_primary_tv"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/myTextPrimaryColor"
+        android:singleLine="true"
+        tools:text="Secondary Text"/>
+
+    <TextView
+        android:id="@+id/row_three_line_tertiary_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/row_three_line_secondary_tv"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/mySecondaryTextColor"
         android:singleLine="true"
-        tools:text="Secondary Text"/>
+        tools:text="Tertiary Text"/>
 
 </RelativeLayout>
