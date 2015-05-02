@@ -8,10 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.rakuishi.ok.R;
 import com.rakuishi.ok.api.OkAPIClient;
 import com.rakuishi.ok.api.model.Feed;
+import com.rakuishi.ok.util.ToastUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -69,7 +71,7 @@ public class BlogListFragment extends Fragment {
 
                 @Override
                 public void onError(Throwable e) {
-
+                    ToastUtils.showLongMessage(getActivity(), e.getMessage());
                 }
 
                 @Override
