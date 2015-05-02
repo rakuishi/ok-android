@@ -13,7 +13,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, new BlogFragment())
+                .replace(R.id.container, new BlogListFragment())
                 .commit();
     }
 }
