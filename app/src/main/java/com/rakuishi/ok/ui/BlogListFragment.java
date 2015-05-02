@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public class BlogListFragment extends Fragment {
     private CompositeSubscription mSubscription = new CompositeSubscription();
 
     @InjectView(R.id.blog_lv) ListView mListView;
+    @InjectView(R.id.blog_empty_view) FrameLayout mEmptyView;
 
     public BlogListFragment() {
         // Required empty public constructor
@@ -47,9 +49,10 @@ public class BlogListFragment extends Fragment {
         // Setup Toolbar
         ActionBarActivity activity = (ActionBarActivity)getActivity();
         activity.setSupportActionBar((Toolbar) view.findViewById(R.id.toolbar));
+        activity.getSupportActionBar().setTitle("rakuishi.com");
 
+        mListView.setEmptyView(mEmptyView);
         requestBlogFeed();
-
         return view;
     }
 
@@ -66,12 +69,13 @@ public class BlogListFragment extends Fragment {
             .subscribe(new Subscriber<Feed>() {
                 @Override
                 public void onCompleted() {
-
+                    mEmptyView.setVisibility(View.GONE);
                 }
 
                 @Override
                 public void onError(Throwable e) {
                     ToastUtils.showLongMessage(getActivity(), e.getMessage());
+                    mEmptyView.setVisibility(View.GONE);
                 }
 
                 @Override
