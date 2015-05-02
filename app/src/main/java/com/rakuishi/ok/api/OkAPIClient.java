@@ -56,24 +56,19 @@ public class OkAPIClient {
                 .get()
                 .build();
         return request(req)
-                .map(new MapResponseToFeed(mSerializer));
+                .map(mapResponseToFeed(mSerializer));
     }
 
-    private static class MapResponseToFeed implements Func1<Response, Feed> {
-
-        private Serializer mSerializer;
-
-        public MapResponseToFeed(Serializer serializer) {
-            mSerializer = serializer;
-        }
-
-        @Override
-        public Feed call(Response response) {
-            try {
-                return mSerializer.read(Feed.class, response.body().string());
-            } catch (Exception e) {
-                throw new OnErrorFailedException(e);
+    private static Func1<Response, Feed> mapResponseToFeed(final Serializer serializer) {
+        return new Func1<Response, Feed>() {
+            @Override
+            public Feed call(Response response) {
+                try {
+                    return serializer.read(Feed.class, response.body().string());
+                } catch (Exception e) {
+                    throw new OnErrorFailedException(e);
+                }
             }
-        }
+        };
     }
 }
