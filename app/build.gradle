@@ -11,6 +11,9 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    packagingOptions {
+        exclude 'LICENSE.txt'
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -22,6 +25,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.0.0'
+    androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
     compile 'com.squareup.okhttp:okhttp:2.3.0'
     compile 'io.reactivex:rxandroid:0.24.0'
     compile 'com.google.code.gson:gson:2.3'
