@@ -1,5 +1,7 @@
 package com.rakuishi.ok.ui;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -14,10 +16,13 @@ import android.widget.Toast;
 import com.rakuishi.ok.R;
 import com.rakuishi.ok.api.OkAPIClient;
 import com.rakuishi.ok.api.model.Feed;
+import com.rakuishi.ok.api.model.FeedItem;
 import com.rakuishi.ok.util.ToastUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnItemClick;
+import butterknife.OnItemSelected;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -34,6 +39,12 @@ public class BlogListFragment extends Fragment {
 
     @InjectView(R.id.blog_lv) ListView mListView;
     @InjectView(R.id.blog_empty_view) FrameLayout mEmptyView;
+
+    @OnItemClick(R.id.blog_lv)
+    void onItemClick(int position) {
+        FeedItem item = (FeedItem) mListView.getAdapter().getItem(position);
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(item.getLink())));
+    }
 
     public BlogListFragment() {
         // Required empty public constructor
