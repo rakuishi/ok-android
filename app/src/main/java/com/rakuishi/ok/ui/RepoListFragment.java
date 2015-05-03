@@ -1,5 +1,7 @@
 package com.rakuishi.ok.ui;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -37,8 +39,8 @@ public class RepoListFragment extends Fragment {
 
     @OnItemClick(R.id.list_lv)
     void onItemClick(int position) {
-        // FeedItem item = (FeedItem) mListView.getAdapter().getItem(position);
-        // startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(item.getLink())));
+        Repo item = (Repo) mListView.getAdapter().getItem(position);
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(item.getUrl())));
     }
 
     public RepoListFragment() {
