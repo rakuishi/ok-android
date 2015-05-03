@@ -54,10 +54,6 @@ public class FeedListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_feed_list, container, false);
         ButterKnife.inject(this, view);
 
-        // Setup Toolbar
-        ActionBarActivity activity = (ActionBarActivity)getActivity();
-        activity.getSupportActionBar().setTitle("rakuishi.com");
-
         mListView.setEmptyView(mEmptyView);
         requestBlogFeed();
         return view;

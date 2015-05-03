@@ -41,9 +41,14 @@ public class ViewPagerFragment extends Fragment {
 
         ActionBarActivity activity = (ActionBarActivity)getActivity();
         activity.setSupportActionBar((Toolbar) view.findViewById(R.id.toolbar));
+        activity.setTitle(R.string.app_name);
         setHasOptionsMenu(true);
 
-        ViewPagerAdapter adapter = new ViewPagerAdapter(activity.getSupportFragmentManager());
+        String[] titles = {
+                getResources().getString(R.string.tab_blog),
+                getResources().getString(R.string.tab_repo),
+                getResources().getString(R.string.tab_gist)};
+        ViewPagerAdapter adapter = new ViewPagerAdapter(activity.getSupportFragmentManager(), titles);
         mViewPager.setAdapter(adapter);
 
         mTabLayout.setDistributeEvenly(true);
@@ -55,8 +60,11 @@ public class ViewPagerFragment extends Fragment {
 
     public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
-        public ViewPagerAdapter(FragmentManager fm) {
+        private String[] mTitles;
+
+        public ViewPagerAdapter(FragmentManager fm, String[] titles) {
             super(fm);
+            mTitles = titles;
         }
 
         @Override
@@ -73,19 +81,12 @@ public class ViewPagerFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return 3;
+            return mTitles.length;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "Blog";
-                case 1:
-                    return "Repo";
-                default:
-                    return "Gist";
-            }
+            return mTitles[position];
         }
     }
 }

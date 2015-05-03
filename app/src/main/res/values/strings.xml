@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">OK</string>
+
+    <string name="app_name">rakuishi</string>
+    <string name="tab_blog">Blog</string>
+    <string name="tab_repo">Repo</string>
+    <string name="tab_gist">Gist</string>
+
 </resources>
