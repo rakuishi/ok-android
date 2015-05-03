@@ -43,7 +43,7 @@ public class OkAPIClient {
         return OkAPIClient.instance;
     }
 
-    public Observable<Response> getRequest(final Request request) {
+    public Observable<Response> getResponse(final Request request) {
         return Observable.create(new Observable.OnSubscribe<Response>() {
             @Override
             public void call(Subscriber<? super Response> subscriber) {
@@ -63,7 +63,7 @@ public class OkAPIClient {
                 .url("http://rakuishi.com/index.xml")
                 .get()
                 .build();
-        return getRequest(request)
+        return getResponse(request)
                 .map(convertXMLResponseToObject(mSerializer, Feed.class));
     }
 
@@ -72,8 +72,9 @@ public class OkAPIClient {
                 .url("https://api.github.com/users/rakuishi/repos")
                 .get()
                 .build();
-        return getRequest(request)
-                .map(convertJSONResponseToObject(mGson, new TypeToken<List<Repo>>() {}));
+        return getResponse(request)
+                .map(convertJSONResponseToObject(mGson, new TypeToken<List<Repo>>() {
+                }));
     }
 
     public Observable<List<Gist>> requestGists() {
@@ -81,8 +82,9 @@ public class OkAPIClient {
                 .url("https://api.github.com/users/rakuishi/gists")
                 .get()
                 .build();
-        return getRequest(request)
-                .map(convertJSONResponseToObject(mGson, new TypeToken<List<Gist>>() {}));
+        return getResponse(request)
+                .map(convertJSONResponseToObject(mGson, new TypeToken<List<Gist>>() {
+                }));
     }
 
     private static <T> Func1<Response, T> convertXMLResponseToObject(final Serializer serializer, final Class<T> clazz) {
