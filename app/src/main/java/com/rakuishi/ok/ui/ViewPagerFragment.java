@@ -52,7 +52,7 @@ public class ViewPagerFragment extends Fragment {
         mViewPager.setAdapter(adapter);
 
         mTabLayout.setDistributeEvenly(true);
-        mTabLayout.setSelectedIndicatorColors(activity.getResources().getColor(R.color.myPrimaryDarkColor));
+        mTabLayout.setSelectedIndicatorColors(activity.getResources().getColor(R.color.myAccentColor));
         mTabLayout.setViewPager(mViewPager);
 
         return view;
