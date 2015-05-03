@@ -10,17 +10,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <ListView
-        android:id="@+id/blog_lv"
+    <com.rakuishi.ok.ui.common.SlidingTabLayout
+        android:id="@+id/sliding_tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:background="?attr/colorPrimary"
+        android:elevation="@dimen/no_elevation"/>
 
-    <include
-        layout="@layout/view_empty"
-        android:id="@+id/blog_empty_view"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sliding_tab_layout"/>
 
 </RelativeLayout>

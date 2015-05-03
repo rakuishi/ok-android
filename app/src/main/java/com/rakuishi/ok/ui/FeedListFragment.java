@@ -5,13 +5,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.rakuishi.ok.R;
 import com.rakuishi.ok.api.OkAPIClient;
@@ -22,7 +20,6 @@ import com.rakuishi.ok.util.ToastUtils;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnItemClick;
-import butterknife.OnItemSelected;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -31,9 +28,9 @@ import rx.subscriptions.CompositeSubscription;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BlogListFragment extends Fragment {
+public class FeedListFragment extends Fragment {
 
-    public static final String TAG = BlogListFragment.class.getSimpleName();
+    public static final String TAG = FeedListFragment.class.getSimpleName();
 
     private CompositeSubscription mSubscription = new CompositeSubscription();
 
@@ -46,7 +43,7 @@ public class BlogListFragment extends Fragment {
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(item.getLink())));
     }
 
-    public BlogListFragment() {
+    public FeedListFragment() {
         // Required empty public constructor
     }
 
@@ -54,12 +51,11 @@ public class BlogListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_blog, container, false);
+        View view = inflater.inflate(R.layout.fragment_feed_list, container, false);
         ButterKnife.inject(this, view);
 
         // Setup Toolbar
         ActionBarActivity activity = (ActionBarActivity)getActivity();
-        activity.setSupportActionBar((Toolbar) view.findViewById(R.id.toolbar));
         activity.getSupportActionBar().setTitle("rakuishi.com");
 
         mListView.setEmptyView(mEmptyView);
