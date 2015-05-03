@@ -73,9 +73,9 @@ public class ViewPagerFragment extends Fragment {
                 case 0:
                     return new FeedListFragment();
                 case 1:
-                    return new FeedListFragment();
+                    return new RepoListFragment();
                 default:
-                    return new FeedListFragment();
+                    return new GistListFragment();
             }
         }
 

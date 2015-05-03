@@ -1,7 +1,5 @@
 package com.rakuishi.ok.ui;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,9 +10,10 @@ import android.widget.ListView;
 
 import com.rakuishi.ok.R;
 import com.rakuishi.ok.api.OkAPIClient;
-import com.rakuishi.ok.api.model.Feed;
-import com.rakuishi.ok.api.model.FeedItem;
+import com.rakuishi.ok.api.model.Repo;
 import com.rakuishi.ok.util.ToastUtils;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -25,11 +24,11 @@ import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Created by rakuishi on 15/05/03.
  */
-public class FeedListFragment extends Fragment {
+public class RepoListFragment extends Fragment {
 
-    public static final String TAG = FeedListFragment.class.getSimpleName();
+    public static final String TAG = RepoListFragment.class.getSimpleName();
 
     private CompositeSubscription mSubscription = new CompositeSubscription();
 
@@ -38,11 +37,11 @@ public class FeedListFragment extends Fragment {
 
     @OnItemClick(R.id.list_lv)
     void onItemClick(int position) {
-        FeedItem item = (FeedItem) mListView.getAdapter().getItem(position);
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(item.getLink())));
+        // FeedItem item = (FeedItem) mListView.getAdapter().getItem(position);
+        // startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(item.getLink())));
     }
 
-    public FeedListFragment() {
+    public RepoListFragment() {
         // Required empty public constructor
     }
 
@@ -54,7 +53,7 @@ public class FeedListFragment extends Fragment {
         ButterKnife.inject(this, view);
 
         mListView.setEmptyView(mEmptyView);
-        requestBlogFeed();
+        requestGist();
         return view;
     }
 
@@ -64,11 +63,11 @@ public class FeedListFragment extends Fragment {
         super.onDestroy();
     }
 
-    private void requestBlogFeed() {
-        mSubscription.add(OkAPIClient.getInstance().requestFeed()
+    private void requestGist() {
+        mSubscription.add(OkAPIClient.getInstance().requestRepos()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Feed>() {
+                .subscribe(new Subscriber<List<Repo>>() {
                     @Override
                     public void onCompleted() {
                         mEmptyView.setVisibility(View.GONE);
@@ -81,9 +80,8 @@ public class FeedListFragment extends Fragment {
                     }
 
                     @Override
-                    public void onNext(Feed feed) {
-                        mListView.setAdapter(new FeedAdapter(getActivity(), feed.getList()));
+                    public void onNext(List<Repo> repos) {
+                        mListView.setAdapter(new RepoAdapter(getActivity(), repos));
                     }
                 }));
-    }
-}
+    }}
