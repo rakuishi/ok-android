@@ -1,24 +1,14 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/myPrimaryColor</item>
-        <item name="colorPrimaryDark">@color/myPrimaryDarkColor</item>
-        <item name="colorAccent">@color/myAccentColor</item>
-        <item name="android:textColorPrimary">@color/myTextPrimaryColor</item>
-        <item name="android:navigationBarColor">@color/myNavigationColor</item>
-
-        <item name="android:windowBackground">@color/myWindowBackground</item>
-        <item name="android:windowContentTransitions">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="ToolBarStyle" parent="">
-        <item name="android:elevation">@dimen/no_elevation</item>
-        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
-        <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
-    </style>
-
-    <style name="ProgressBarStyle" parent="@android:style/Widget.Material.Light.ProgressBar.Large">
+    <style name="PlaceholderTextView">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
 </resources>

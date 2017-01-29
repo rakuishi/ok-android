@@ -1,0 +1,14 @@
+<tabs>
+    <tab
+        id="@+id/tab_feed"
+        icon="@mipmap/bottombar_feed"
+        title="Feed" />
+    <tab
+        id="@+id/tab_repo"
+        icon="@mipmap/bottombar_repo"
+        title="Repo" />
+    <tab
+        id="@+id/tab_gist"
+        icon="@mipmap/bottombar_gist"
+        title="Gist" />
+</tabs>
