@@ -22,6 +22,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getComponent().inject(this);
+        viewModel.onCreate();
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setViewModel(viewModel);
@@ -29,5 +30,11 @@ public class MainActivity extends BaseActivity {
         // To be honest, I don't want to write `setOnTabSelectListener` in this MainActivity.
         // But BottomBar doesn't provide a data-bindable listener.
         binding.bottombar.setOnTabSelectListener(tabId -> viewModel.replaceFragment(tabId));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        viewModel.onDestroy();
     }
 }

@@ -24,6 +24,7 @@ public class GistFragment extends BaseFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         getComponent().inject(this);
+        viewModel.onCreate();
     }
 
     @Override
@@ -36,5 +37,11 @@ public class GistFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         binding = FragmentGistBinding.bind(getView());
         binding.setViewModel(viewModel);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        viewModel.onDestroy();
     }
 }
