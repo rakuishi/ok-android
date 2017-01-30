@@ -1,4 +1,4 @@
-package com.rakuishi.ok.viewcontrollers;
+package com.rakuishi.ok.view.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

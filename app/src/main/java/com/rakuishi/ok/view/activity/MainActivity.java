@@ -1,4 +1,4 @@
-package com.rakuishi.ok.viewcontrollers;
+package com.rakuishi.ok.view.activity;
 
 import android.databinding.DataBindingUtil;
 import android.support.annotation.IdRes;
@@ -9,6 +9,9 @@ import android.os.Bundle;
 
 import com.rakuishi.ok.R;
 import com.rakuishi.ok.databinding.ActivityMainBinding;
+import com.rakuishi.ok.view.fragment.FeedFragment;
+import com.rakuishi.ok.view.fragment.GistFragment;
+import com.rakuishi.ok.view.fragment.RepoFragment;
 import com.roughike.bottombar.OnTabSelectListener;
 
 public class MainActivity extends AppCompatActivity {
