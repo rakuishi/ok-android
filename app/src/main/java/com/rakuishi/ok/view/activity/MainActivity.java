@@ -28,11 +28,6 @@ public class MainActivity extends BaseActivity {
 
         // To be honest, I don't want to write `setOnTabSelectListener` in this MainActivity.
         // But BottomBar doesn't provide a data-bindable listener.
-        binding.bottombar.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelected(@IdRes int tabId) {
-                viewModel.replaceFragment(tabId);
-            }
-        });
+        binding.bottombar.setOnTabSelectListener(tabId -> viewModel.replaceFragment(tabId));
     }
 }
