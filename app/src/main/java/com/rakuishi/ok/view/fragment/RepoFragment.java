@@ -1,18 +1,30 @@
 package com.rakuishi.ok.view.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.rakuishi.ok.R;
 import com.rakuishi.ok.databinding.FragmentRepoBinding;
+import com.rakuishi.ok.viewmodel.RepoViewModel;
 
-public class RepoFragment extends Fragment {
+import javax.inject.Inject;
+
+public class RepoFragment extends BaseFragment {
+
+    @Inject
+    RepoViewModel viewModel;
 
     FragmentRepoBinding binding;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        getComponent().inject(this);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -23,5 +35,6 @@ public class RepoFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         binding = FragmentRepoBinding.bind(getView());
+        binding.setViewModel(viewModel);
     }
 }
