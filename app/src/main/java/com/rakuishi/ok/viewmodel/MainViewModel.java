@@ -12,7 +12,7 @@ import com.rakuishi.ok.view.fragment.RepoFragment;
 
 import javax.inject.Inject;
 
-public class MainViewModel {
+public class MainViewModel extends BaseViewModel {
 
     private BaseActivity activity;
 
