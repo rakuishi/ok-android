@@ -24,7 +24,6 @@ public class FeedFragment extends BaseFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         getComponent().inject(this);
-        viewModel.onCreate();
     }
 
     @Override
@@ -37,6 +36,7 @@ public class FeedFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         binding = FragmentFeedBinding.bind(getView());
         binding.setViewModel(viewModel);
+        viewModel.onCreate();
     }
 
     @Override
