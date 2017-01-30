@@ -1,17 +1,18 @@
-package com.rakuishi.ok.viewmodel;
+package com.rakuishi.ok.ui.feed;
 
 import com.rakuishi.ok.api.OkAPIClient;
 import com.rakuishi.ok.util.LogUtil;
 import com.rakuishi.ok.util.RxUtil;
+import com.rakuishi.ok.ui.base.BaseViewModel;
 
 import javax.inject.Inject;
 
-public class RepoViewModel extends BaseViewModel {
+public class FeedViewModel extends BaseViewModel {
 
     OkAPIClient client;
 
     @Inject
-    public RepoViewModel(OkAPIClient client) {
+    public FeedViewModel(OkAPIClient client) {
         this.client = client;
     }
 
@@ -20,10 +21,10 @@ public class RepoViewModel extends BaseViewModel {
         super.onCreate();
 
         compositeDisposable.add(
-                client.requestRepos()
+                client.requestFeed()
                         .compose(RxUtil.applyMainSchedulers())
-                        .subscribe(repos -> {
-                            LogUtil.d(repos.get(0).name);
+                        .subscribe(feed -> {
+                            LogUtil.d(feed.title);
                         })
         );
     }

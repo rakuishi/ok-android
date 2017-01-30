@@ -1,8 +1,8 @@
 package com.rakuishi.ok.di;
 
-import com.rakuishi.ok.view.fragment.FeedFragment;
-import com.rakuishi.ok.view.fragment.GistFragment;
-import com.rakuishi.ok.view.fragment.RepoFragment;
+import com.rakuishi.ok.ui.feed.FeedFragment;
+import com.rakuishi.ok.ui.gist.GistFragment;
+import com.rakuishi.ok.ui.repo.RepoFragment;
 
 import dagger.Subcomponent;
 

@@ -1,4 +1,4 @@
-package com.rakuishi.ok.view.fragment;
+package com.rakuishi.ok.ui.repo;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.rakuishi.ok.R;
 import com.rakuishi.ok.databinding.FragmentRepoBinding;
-import com.rakuishi.ok.viewmodel.RepoViewModel;
+import com.rakuishi.ok.ui.base.BaseFragment;
 
 import javax.inject.Inject;
 

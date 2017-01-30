@@ -1,4 +1,4 @@
-package com.rakuishi.ok.view.fragment;
+package com.rakuishi.ok.ui.base;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;

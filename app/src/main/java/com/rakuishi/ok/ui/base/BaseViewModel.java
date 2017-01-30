@@ -1,4 +1,4 @@
-package com.rakuishi.ok.viewmodel;
+package com.rakuishi.ok.ui.base;
 
 import io.reactivex.disposables.CompositeDisposable;
 

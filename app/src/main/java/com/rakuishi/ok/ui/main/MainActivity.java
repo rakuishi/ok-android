@@ -1,13 +1,11 @@
-package com.rakuishi.ok.view.activity;
+package com.rakuishi.ok.ui.main;
 
 import android.databinding.DataBindingUtil;
-import android.support.annotation.IdRes;
 import android.os.Bundle;
 
 import com.rakuishi.ok.R;
 import com.rakuishi.ok.databinding.ActivityMainBinding;
-import com.rakuishi.ok.viewmodel.MainViewModel;
-import com.roughike.bottombar.OnTabSelectListener;
+import com.rakuishi.ok.ui.base.BaseActivity;
 
 import javax.inject.Inject;
 

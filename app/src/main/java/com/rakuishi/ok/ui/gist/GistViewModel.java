@@ -1,17 +1,18 @@
-package com.rakuishi.ok.viewmodel;
+package com.rakuishi.ok.ui.gist;
 
 import com.rakuishi.ok.api.OkAPIClient;
 import com.rakuishi.ok.util.LogUtil;
 import com.rakuishi.ok.util.RxUtil;
+import com.rakuishi.ok.ui.base.BaseViewModel;
 
 import javax.inject.Inject;
 
-public class FeedViewModel extends BaseViewModel {
+public class GistViewModel extends BaseViewModel {
 
     OkAPIClient client;
 
     @Inject
-    public FeedViewModel(OkAPIClient client) {
+    public GistViewModel(OkAPIClient client) {
         this.client = client;
     }
 
@@ -20,10 +21,10 @@ public class FeedViewModel extends BaseViewModel {
         super.onCreate();
 
         compositeDisposable.add(
-                client.requestFeed()
+                client.requestGists()
                         .compose(RxUtil.applyMainSchedulers())
-                        .subscribe(feed -> {
-                            LogUtil.d(feed.title);
+                        .subscribe(gists -> {
+                            LogUtil.d(gists.get(0).url);
                         })
         );
     }

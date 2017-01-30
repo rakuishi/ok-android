@@ -1,4 +1,4 @@
-package com.rakuishi.ok.view.fragment;
+package com.rakuishi.ok.ui.feed;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.rakuishi.ok.R;
 import com.rakuishi.ok.databinding.FragmentFeedBinding;
-import com.rakuishi.ok.viewmodel.FeedViewModel;
+import com.rakuishi.ok.ui.base.BaseFragment;
 
 import javax.inject.Inject;
 
