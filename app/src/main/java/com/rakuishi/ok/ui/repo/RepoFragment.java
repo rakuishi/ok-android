@@ -19,6 +19,7 @@ public class RepoFragment extends BaseFragment {
     RepoViewModel viewModel;
 
     FragmentRepoBinding binding;
+    RepoAdapter adapter;
 
     @Override
     public void onAttach(Context context) {
@@ -38,6 +39,10 @@ public class RepoFragment extends BaseFragment {
         binding.setViewModel(viewModel);
         viewModel.onCreate();
         setActionBarTitle(R.string.repo_title);
+
+        adapter = new RepoAdapter(getActivity(), viewModel.repos);
+        binding.listview.setAdapter(adapter);
+        viewModel.refreshData();
     }
 
     @Override

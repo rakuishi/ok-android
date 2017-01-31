@@ -2,7 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="feedItem" type="com.rakuishi.ok.model.FeedItem" />
+        <variable name="repo" type="com.rakuishi.ok.model.Repo" />
     </data>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             android:maxLines="1"
-            android:text="@{feedItem.title}"
+            android:text="@{repo.name}"
             tools:text="Primary Text"/>
 
         <TextView
@@ -27,7 +27,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:maxLines="1"
             android:layout_below="@+id/primary_textview"
-            android:text="@{feedItem.pubDate}"
+            android:text="@{repo.description}"
             tools:text="Secondary Text" />
 
     </RelativeLayout>

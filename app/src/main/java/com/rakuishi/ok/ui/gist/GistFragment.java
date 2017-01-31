@@ -19,6 +19,7 @@ public class GistFragment extends BaseFragment {
     GistViewModel viewModel;
 
     FragmentGistBinding binding;
+    GistAdapter adapter;
 
     @Override
     public void onAttach(Context context) {
@@ -38,6 +39,10 @@ public class GistFragment extends BaseFragment {
         binding.setViewModel(viewModel);
         viewModel.onCreate();
         setActionBarTitle(R.string.gist_title);
+
+        adapter = new GistAdapter(getActivity(), viewModel.gists);
+        binding.listview.setAdapter(adapter);
+        viewModel.refreshData();
     }
 
     @Override
