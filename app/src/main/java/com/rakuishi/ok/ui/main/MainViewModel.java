@@ -1,8 +1,10 @@
 package com.rakuishi.ok.ui.main;
 
-import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.MenuItem;
 
 import com.rakuishi.ok.R;
 import com.rakuishi.ok.ui.base.BaseActivity;
@@ -17,30 +19,65 @@ public class MainViewModel extends BaseViewModel {
 
     private BaseActivity activity;
 
+    private static final String FRAGMENT_TAG_FEED = "feed";
+    private static final String FRAGMENT_TAG_REPO = "repo";
+    private static final String FRAGMENT_TAG_GIST = "gist";
+    private FeedFragment feedFragment;
+    private RepoFragment repoFragment;
+    private GistFragment gistFragment;
+
     @Inject
     public MainViewModel(BaseActivity activity) {
         this.activity = activity;
+
+        final FragmentManager manager = activity.getSupportFragmentManager();
+        feedFragment = (FeedFragment) manager.findFragmentByTag(FRAGMENT_TAG_FEED);
+        repoFragment = (RepoFragment) manager.findFragmentByTag(FRAGMENT_TAG_REPO);
+        gistFragment = (GistFragment) manager.findFragmentByTag(FRAGMENT_TAG_GIST);
+
+        if (feedFragment == null) {
+            feedFragment = new FeedFragment();
+        }
+        if (repoFragment == null) {
+            repoFragment = new RepoFragment();
+        }
+        if (gistFragment == null) {
+            gistFragment = new GistFragment();
+        }
     }
 
-    public void replaceFragment(@IdRes int tabId) {
-        FragmentTransaction transaction = activity.getSupportFragmentManager()
-                .beginTransaction();
-        Fragment fragment;
-
-        switch (tabId) {
-            case R.id.tab_feed:
-                fragment = new FeedFragment();
+    public void replaceFragment(int itemId) {
+        switch (itemId) {
+            case R.id.action_feed:
+                replaceFragment(feedFragment, FRAGMENT_TAG_FEED);
                 break;
-            case R.id.tab_repo:
-                fragment = new RepoFragment();
+            case R.id.action_repo:
+                replaceFragment(repoFragment, FRAGMENT_TAG_REPO);
                 break;
-            case R.id.tab_gist:
-            default:
-                fragment = new GistFragment();
+            case R.id.action_gist:
+                replaceFragment(gistFragment, FRAGMENT_TAG_GIST);
                 break;
         }
+    }
 
-        transaction.replace(R.id.container, fragment);
-        transaction.commit();
+    private void replaceFragment(@NonNull Fragment fragment, String tag) {
+        if (fragment.isAdded()) {
+            return;
+        }
+
+        final FragmentManager manager = activity.getSupportFragmentManager();
+        final FragmentTransaction transaction = manager.beginTransaction();
+
+        final Fragment currentFragment = manager.findFragmentById(R.id.container);
+        if (currentFragment != null) {
+            transaction.detach(currentFragment);
+        }
+        if (fragment.isDetached()) {
+            transaction.attach(fragment);
+        } else {
+            transaction.add(R.id.container, fragment, tag);
+        }
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit();
     }
 }

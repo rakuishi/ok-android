@@ -11,15 +11,15 @@
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/bottombar" />
+            android:layout_above="@+id/bottom_naviagtion_view" />
 
-        <com.roughike.bottombar.BottomBar
-            android:id="@+id/bottombar"
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bottom_naviagtion_view"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/bottom_navigation_height"
+            android:layout_height="56dp"
+            android:background="#FFF"
             android:layout_alignParentBottom="true"
-            app:bb_tabXmlResource="@xml/bottombar"
-            app:bb_showShadow="false" />
+            app:menu="@menu/bottom_navigation_view" />
 
     </RelativeLayout>
 </layout>
