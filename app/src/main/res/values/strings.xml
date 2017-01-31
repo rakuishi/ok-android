@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">rakuishi</string>
+    <string name="app_name">OK</string>
     <string name="feed_title">Feed</string>
     <string name="repo_title">Repo</string>
     <string name="gist_title">Gist</string>
