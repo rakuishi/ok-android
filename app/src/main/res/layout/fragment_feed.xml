@@ -1,4 +1,5 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="viewModel" type="com.rakuishi.ok.ui.feed.FeedViewModel" />
     </data>
@@ -6,12 +7,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            style="@style/PlaceholderTextView"
-            android:id="@+id/textview"
+        <ListView
+            android:id="@+id/listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/fragment_feed_title" />
+            android:onItemClick="@{(parent, view, position, id) -> {viewModel.onItemClick(position)}}"/>
 
     </FrameLayout>
 </layout>

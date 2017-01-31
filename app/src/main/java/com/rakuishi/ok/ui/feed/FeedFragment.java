@@ -20,6 +20,8 @@ public class FeedFragment extends BaseFragment {
 
     FragmentFeedBinding binding;
 
+    FeedAdapter adapter;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -37,6 +39,10 @@ public class FeedFragment extends BaseFragment {
         binding = FragmentFeedBinding.bind(getView());
         binding.setViewModel(viewModel);
         viewModel.onCreate();
+
+        adapter = new FeedAdapter(getActivity(), viewModel.feedItems);
+        binding.listview.setAdapter(adapter);
+        viewModel.refreshData();
     }
 
     @Override
