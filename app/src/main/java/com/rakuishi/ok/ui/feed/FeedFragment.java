@@ -19,7 +19,6 @@ public class FeedFragment extends BaseFragment {
     FeedViewModel viewModel;
 
     FragmentFeedBinding binding;
-
     FeedAdapter adapter;
 
     @Override
@@ -39,6 +38,7 @@ public class FeedFragment extends BaseFragment {
         binding = FragmentFeedBinding.bind(getView());
         binding.setViewModel(viewModel);
         viewModel.onCreate();
+        setActionBarTitle(R.string.feed_title);
 
         adapter = new FeedAdapter(getActivity(), viewModel.feedItems);
         binding.listview.setAdapter(adapter);

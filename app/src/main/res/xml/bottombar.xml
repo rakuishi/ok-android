@@ -2,13 +2,13 @@
     <tab
         id="@+id/tab_feed"
         icon="@mipmap/bottombar_feed"
-        title="Feed" />
+        title="@string/feed_title" />
     <tab
         id="@+id/tab_repo"
         icon="@mipmap/bottombar_repo"
-        title="Repo" />
+        title="@string/repo_title" />
     <tab
         id="@+id/tab_gist"
         icon="@mipmap/bottombar_gist"
-        title="Gist" />
+        title="@string/gist_title" />
 </tabs>

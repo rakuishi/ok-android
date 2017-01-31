@@ -37,6 +37,7 @@ public class GistFragment extends BaseFragment {
         binding = FragmentGistBinding.bind(getView());
         binding.setViewModel(viewModel);
         viewModel.onCreate();
+        setActionBarTitle(R.string.gist_title);
     }
 
     @Override

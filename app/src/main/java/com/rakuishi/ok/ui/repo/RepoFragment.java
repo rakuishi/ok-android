@@ -37,6 +37,7 @@ public class RepoFragment extends BaseFragment {
         binding = FragmentRepoBinding.bind(getView());
         binding.setViewModel(viewModel);
         viewModel.onCreate();
+        setActionBarTitle(R.string.repo_title);
     }
 
     @Override

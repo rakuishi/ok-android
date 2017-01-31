@@ -1,7 +1,9 @@
 package com.rakuishi.ok.ui.base;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 
 import com.rakuishi.ok.App;
 import com.rakuishi.ok.di.FragmentComponent;
@@ -18,5 +20,10 @@ public class BaseFragment extends Fragment {
             fragmentComponent = app.getComponent().fragmentComponent(new FragmentModule(this));
         }
         return fragmentComponent;
+    }
+
+    public void setActionBarTitle(@StringRes int resId) {
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        activity.getSupportActionBar().setTitle(resId);
     }
 }

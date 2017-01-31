@@ -1,8 +1,8 @@
 <resources>
 
     <string name="app_name">rakuishi</string>
-    <string name="fragment_feed_title">FeedFragment</string>
-    <string name="fragment_repo_title">RepoFragment</string>
-    <string name="fragment_gist_title">GistFragment</string>
+    <string name="feed_title">Feed</string>
+    <string name="repo_title">Repo</string>
+    <string name="gist_title">Gist</string>
 
 </resources>
