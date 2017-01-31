@@ -48,7 +48,9 @@ public class OkAPIClient {
                 e.onNext(response);
                 e.onComplete();
             } catch (IOException exception) {
-                e.onError(exception);
+                // The following code will cause `InterruptedIOException`
+                // when okhttp's call canceled.
+                // e.onError(exception);
             }
         });
     }
