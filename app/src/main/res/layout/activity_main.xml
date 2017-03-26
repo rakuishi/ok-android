@@ -11,10 +11,10 @@
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/bottom_naviagtion_view" />
+            android:layout_above="@+id/bottom_navigation_view" />
 
         <android.support.design.widget.BottomNavigationView
-            android:id="@+id/bottom_naviagtion_view"
+            android:id="@+id/bottom_navigation_view"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:background="#FFF"

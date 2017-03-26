@@ -27,7 +27,7 @@ public class MainActivity extends BaseActivity {
 
         // To be honest, I don't want to write `setOnNavigationItemSelectedListener` in this MainActivity.
         // But BottomNavigationView doesn't provide a data-bindable listener.
-        binding.bottomNaviagtionView.setOnNavigationItemSelectedListener(item -> {
+        binding.bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             viewModel.replaceFragment(item.getItemId());
             return true;
         });
