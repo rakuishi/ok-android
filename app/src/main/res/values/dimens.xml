@@ -1,5 +1,6 @@
 <resources>
 
     <dimen name="bottom_navigation_height">56dp</dimen>
+    <dimen name="horizontal_progressbar_negative_padding">-7dp</dimen>
 
 </resources>

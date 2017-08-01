@@ -1,8 +1,14 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
     <data>
-        <variable name="viewModel" type="com.rakuishi.ok.viewmodel.FeedViewModel" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.rakuishi.ok.viewmodel.FeedViewModel" />
     </data>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -13,5 +19,15 @@
             android:layout_height="match_parent"
             android:onItemClick="@{(parent, view, position, id) -> {viewModel.onItemClick(position)}}" />
 
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/horizontal_progressbar_negative_padding"
+            android:indeterminate="true"
+            android:visibility="@{viewModel.isRefreshing ? View.VISIBLE : View.GONE}" />
+
     </FrameLayout>
+
 </layout>
