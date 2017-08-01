@@ -24,13 +24,7 @@ public class MainActivity extends BaseActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setViewModel(viewModel);
-
-        // To be honest, I don't want to write `setOnNavigationItemSelectedListener` in this MainActivity.
-        // But BottomNavigationView doesn't provide a data-bindable listener.
-        binding.bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
-            viewModel.replaceFragment(item.getItemId());
-            return true;
-        });
+        binding.bottomNavigationView.setOnNavigationItemSelectedListener(viewModel);
 
         if (savedInstanceState == null) {
             viewModel.replaceFragment(R.id.action_feed);

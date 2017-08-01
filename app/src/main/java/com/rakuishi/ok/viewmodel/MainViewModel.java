@@ -1,9 +1,11 @@
 package com.rakuishi.ok.viewmodel;
 
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.MenuItem;
 
 import com.rakuishi.ok.R;
 import com.rakuishi.ok.activity.BaseActivity;
@@ -13,7 +15,7 @@ import com.rakuishi.ok.fragment.RepoFragment;
 
 import javax.inject.Inject;
 
-public class MainViewModel extends BaseViewModel {
+public class MainViewModel extends BaseViewModel implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private BaseActivity activity;
 
@@ -78,4 +80,14 @@ public class MainViewModel extends BaseViewModel {
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .commit();
     }
+
+    // region BottomNavigationView.OnNavigationItemSelectedListener
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        replaceFragment(item.getItemId());
+        return true;
+    }
+
+    // endregion
 }
