@@ -26,9 +26,7 @@ public class MainActivity extends BaseActivity {
         binding.setViewModel(viewModel);
         binding.bottomNavigationView.setOnNavigationItemSelectedListener(viewModel);
 
-        if (savedInstanceState == null) {
-            viewModel.replaceFragment(R.id.action_feed);
-        }
+        viewModel.instantiateFragment(0);
     }
 
     @Override

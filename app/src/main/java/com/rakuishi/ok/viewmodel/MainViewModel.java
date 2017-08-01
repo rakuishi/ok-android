@@ -1,6 +1,8 @@
 package com.rakuishi.ok.viewmodel;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,75 +19,116 @@ import javax.inject.Inject;
 
 public class MainViewModel extends BaseViewModel implements BottomNavigationView.OnNavigationItemSelectedListener {
 
+    private static final int FRAGMENT_COUNT = 3;
+    private static final int CONTAINER_ID = R.id.container;
     private BaseActivity activity;
-
-    private static final String FRAGMENT_TAG_FEED = "feed";
-    private static final String FRAGMENT_TAG_REPO = "repo";
-    private static final String FRAGMENT_TAG_GIST = "gist";
-    private FeedFragment feedFragment;
-    private RepoFragment repoFragment;
-    private GistFragment gistFragment;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction transaction;
 
     @Inject
-    public MainViewModel(BaseActivity activity) {
+    MainViewModel(BaseActivity activity) {
         this.activity = activity;
-
-        final FragmentManager manager = activity.getSupportFragmentManager();
-        feedFragment = (FeedFragment) manager.findFragmentByTag(FRAGMENT_TAG_FEED);
-        repoFragment = (RepoFragment) manager.findFragmentByTag(FRAGMENT_TAG_REPO);
-        gistFragment = (GistFragment) manager.findFragmentByTag(FRAGMENT_TAG_GIST);
-
-        if (feedFragment == null) {
-            feedFragment = new FeedFragment();
-        }
-        if (repoFragment == null) {
-            repoFragment = new RepoFragment();
-        }
-        if (gistFragment == null) {
-            gistFragment = new GistFragment();
-        }
+        fragmentManager = activity.getSupportFragmentManager();
     }
 
-    public void replaceFragment(int itemId) {
-        switch (itemId) {
-            case R.id.action_feed:
-                replaceFragment(feedFragment, FRAGMENT_TAG_FEED);
-                break;
-            case R.id.action_repo:
-                replaceFragment(repoFragment, FRAGMENT_TAG_REPO);
-                break;
-            case R.id.action_gist:
-                replaceFragment(gistFragment, FRAGMENT_TAG_GIST);
-                break;
+    @Override
+    public void onDestroy() {
+        for (int i = 0; i < FRAGMENT_COUNT; i++) {
+            destroyFragment(i);
         }
+        commitTransaction();
+        super.onDestroy();
     }
 
-    private void replaceFragment(@NonNull Fragment fragment, String tag) {
-        if (fragment.isAdded()) {
-            return;
+    @SuppressLint("CommitTransaction")
+    public void instantiateFragment(int position) {
+        if (transaction == null) {
+            transaction = fragmentManager.beginTransaction();
         }
 
-        final FragmentManager manager = activity.getSupportFragmentManager();
-        final FragmentTransaction transaction = manager.beginTransaction();
-
-        final Fragment currentFragment = manager.findFragmentById(R.id.container);
-        if (currentFragment != null) {
-            transaction.detach(currentFragment);
-        }
-        if (fragment.isDetached()) {
+        String name = makeFragmentName(position);
+        Fragment fragment = fragmentManager.findFragmentByTag(name);
+        if (fragment != null) {
             transaction.attach(fragment);
         } else {
-            transaction.add(R.id.container, fragment, tag);
+            fragment = getFragment(position);
+            transaction.add(R.id.container, fragment, name);
         }
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit();
+
+        for (int i = 0; i < FRAGMENT_COUNT; i++) {
+            if (i != position) {
+                destroyFragment(i);
+            }
+        }
+
+        setVisibility(fragment, true);
+        commitTransaction();
+    }
+
+    @SuppressLint("CommitTransaction")
+    private void destroyFragment(int position) {
+        if (transaction == null) {
+            transaction = fragmentManager.beginTransaction();
+        }
+
+        String name = makeFragmentName(position);
+        Fragment fragment = fragmentManager.findFragmentByTag(name);
+        if (fragment != null) {
+            transaction.detach(fragment);
+            setVisibility(fragment, false);
+        }
+    }
+
+    private void commitTransaction() {
+        if (transaction != null) {
+            transaction.commitNowAllowingStateLoss();
+            transaction = null;
+        }
+    }
+
+    private void setVisibility(@Nullable Fragment fragment, boolean visible) {
+        if (fragment != null) {
+            fragment.setUserVisibleHint(visible);
+            fragment.setMenuVisibility(visible);
+        }
+    }
+
+    private String makeFragmentName(int position) {
+        return "android:switcher:" + CONTAINER_ID + ":" + position;
+    }
+
+    private Fragment getFragment(int position) {
+        switch (position) {
+            case 0:
+                return new FeedFragment();
+            case 1:
+                return new RepoFragment();
+            case 2:
+                return new GistFragment();
+        }
+
+        throw new IllegalStateException("This position:" + position + " is not supported.");
+    }
+
+    private int getPosition(int itemId) {
+        switch (itemId) {
+            case R.id.action_feed:
+                return 0;
+            case R.id.action_repo:
+                return 1;
+            case R.id.action_gist:
+                return 2;
+        }
+
+        throw new IllegalStateException("This itemId:" + itemId + " is not supported.");
     }
 
     // region BottomNavigationView.OnNavigationItemSelectedListener
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        replaceFragment(item.getItemId());
+        int position = getPosition(item.getItemId());
+        instantiateFragment(position);
         return true;
     }
 
