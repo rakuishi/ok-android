@@ -1,17 +1,15 @@
-package com.rakuishi.ok.ui.main;
+package com.rakuishi.ok.viewmodel;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.MenuItem;
 
 import com.rakuishi.ok.R;
-import com.rakuishi.ok.ui.base.BaseActivity;
-import com.rakuishi.ok.ui.base.BaseViewModel;
-import com.rakuishi.ok.ui.feed.FeedFragment;
-import com.rakuishi.ok.ui.gist.GistFragment;
-import com.rakuishi.ok.ui.repo.RepoFragment;
+import com.rakuishi.ok.activity.BaseActivity;
+import com.rakuishi.ok.fragment.FeedFragment;
+import com.rakuishi.ok.fragment.GistFragment;
+import com.rakuishi.ok.fragment.RepoFragment;
 
 import javax.inject.Inject;
 

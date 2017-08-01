@@ -1,4 +1,4 @@
-package com.rakuishi.ok.ui.repo;
+package com.rakuishi.ok.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;

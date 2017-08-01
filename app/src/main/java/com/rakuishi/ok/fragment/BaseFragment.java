@@ -1,4 +1,4 @@
-package com.rakuishi.ok.ui.base;
+package com.rakuishi.ok.fragment;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;

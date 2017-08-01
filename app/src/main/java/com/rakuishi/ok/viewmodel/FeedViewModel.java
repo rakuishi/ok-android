@@ -1,4 +1,4 @@
-package com.rakuishi.ok.ui.feed;
+package com.rakuishi.ok.viewmodel;
 
 import android.content.Context;
 import android.databinding.ObservableArrayList;
@@ -7,7 +7,7 @@ import com.rakuishi.ok.api.OkAPIClient;
 import com.rakuishi.ok.model.FeedItem;
 import com.rakuishi.ok.util.IntentUtil;
 import com.rakuishi.ok.util.RxUtil;
-import com.rakuishi.ok.ui.base.BaseViewModel;
+import com.rakuishi.ok.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
 

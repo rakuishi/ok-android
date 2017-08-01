@@ -1,7 +1,7 @@
 package com.rakuishi.ok.di;
 
 
-import com.rakuishi.ok.ui.base.BaseFragment;
+import com.rakuishi.ok.fragment.BaseFragment;
 
 import dagger.Module;
 import dagger.Provides;

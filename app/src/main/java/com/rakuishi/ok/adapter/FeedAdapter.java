@@ -1,4 +1,4 @@
-package com.rakuishi.ok.ui.gist;
+package com.rakuishi.ok.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -10,34 +10,34 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.rakuishi.ok.R;
-import com.rakuishi.ok.databinding.ListItemGistBinding;
-import com.rakuishi.ok.model.Gist;
+import com.rakuishi.ok.databinding.ListItemFeedBinding;
+import com.rakuishi.ok.model.FeedItem;
 import com.rakuishi.ok.util.OnListChangedCallback;
 
-public class GistAdapter extends ArrayAdapter<Gist> {
+public class FeedAdapter extends ArrayAdapter<FeedItem> {
 
     private LayoutInflater inflater;
 
-    public GistAdapter(Context context, ObservableArrayList<Gist> gists) {
-        super(context, 0, gists);
+    public FeedAdapter(Context context, ObservableArrayList<FeedItem> feedItems) {
+        super(context, 0, feedItems);
         inflater = LayoutInflater.from(context);
-        gists.addOnListChangedCallback(new OnListChangedCallback<>(this));
+        feedItems.addOnListChangedCallback(new OnListChangedCallback<>(this));
     }
 
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ListItemGistBinding binding;
+        ListItemFeedBinding binding;
 
         if (convertView == null) {
-            binding = DataBindingUtil.inflate(inflater, R.layout.list_item_gist, parent, false);
+            binding = DataBindingUtil.inflate(inflater, R.layout.list_item_feed, parent, false);
             convertView = binding.getRoot();
             convertView.setTag(binding);
         } else {
-            binding = (ListItemGistBinding) convertView.getTag();
+            binding = (ListItemFeedBinding) convertView.getTag();
         }
 
-        binding.setGist(getItem(position));
+        binding.setFeedItem(getItem(position));
 
         return convertView;
     }

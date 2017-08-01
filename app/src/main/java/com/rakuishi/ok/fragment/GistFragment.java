@@ -1,4 +1,4 @@
-package com.rakuishi.ok.ui.feed;
+package com.rakuishi.ok.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,18 +8,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rakuishi.ok.R;
-import com.rakuishi.ok.databinding.FragmentFeedBinding;
-import com.rakuishi.ok.ui.base.BaseFragment;
+import com.rakuishi.ok.adapter.GistAdapter;
+import com.rakuishi.ok.databinding.FragmentGistBinding;
+import com.rakuishi.ok.viewmodel.GistViewModel;
 
 import javax.inject.Inject;
 
-public class FeedFragment extends BaseFragment {
+public class GistFragment extends BaseFragment {
 
     @Inject
-    FeedViewModel viewModel;
+    GistViewModel viewModel;
 
-    FragmentFeedBinding binding;
-    FeedAdapter adapter;
+    FragmentGistBinding binding;
+    GistAdapter adapter;
 
     @Override
     public void onAttach(Context context) {
@@ -29,18 +30,18 @@ public class FeedFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_feed, container, false);
+        return inflater.inflate(R.layout.fragment_gist, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        binding = FragmentFeedBinding.bind(getView());
+        binding = FragmentGistBinding.bind(getView());
         binding.setViewModel(viewModel);
         viewModel.onCreate();
-        setActionBarTitle(R.string.feed_title);
+        setActionBarTitle(R.string.gist_title);
 
-        adapter = new FeedAdapter(getActivity(), viewModel.feedItems);
+        adapter = new GistAdapter(getActivity(), viewModel.gists);
         binding.listview.setAdapter(adapter);
         viewModel.refreshData();
     }

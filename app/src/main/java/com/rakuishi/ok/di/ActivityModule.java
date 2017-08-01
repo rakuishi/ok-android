@@ -1,6 +1,6 @@
 package com.rakuishi.ok.di;
 
-import com.rakuishi.ok.ui.base.BaseActivity;
+import com.rakuishi.ok.activity.BaseActivity;
 
 import dagger.Module;
 import dagger.Provides;

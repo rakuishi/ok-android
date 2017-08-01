@@ -1,11 +1,11 @@
-package com.rakuishi.ok.ui.main;
+package com.rakuishi.ok.activity;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 
 import com.rakuishi.ok.R;
 import com.rakuishi.ok.databinding.ActivityMainBinding;
-import com.rakuishi.ok.ui.base.BaseActivity;
+import com.rakuishi.ok.viewmodel.MainViewModel;
 
 import javax.inject.Inject;
 

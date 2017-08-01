@@ -1,4 +1,4 @@
-package com.rakuishi.ok.ui.repo;
+package com.rakuishi.ok.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,18 +8,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rakuishi.ok.R;
-import com.rakuishi.ok.databinding.FragmentRepoBinding;
-import com.rakuishi.ok.ui.base.BaseFragment;
+import com.rakuishi.ok.adapter.FeedAdapter;
+import com.rakuishi.ok.databinding.FragmentFeedBinding;
+import com.rakuishi.ok.viewmodel.FeedViewModel;
 
 import javax.inject.Inject;
 
-public class RepoFragment extends BaseFragment {
+public class FeedFragment extends BaseFragment {
 
     @Inject
-    RepoViewModel viewModel;
+    FeedViewModel viewModel;
 
-    FragmentRepoBinding binding;
-    RepoAdapter adapter;
+    FragmentFeedBinding binding;
+    FeedAdapter adapter;
 
     @Override
     public void onAttach(Context context) {
@@ -29,18 +30,18 @@ public class RepoFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_repo, container, false);
+        return inflater.inflate(R.layout.fragment_feed, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        binding = FragmentRepoBinding.bind(getView());
+        binding = FragmentFeedBinding.bind(getView());
         binding.setViewModel(viewModel);
         viewModel.onCreate();
-        setActionBarTitle(R.string.repo_title);
+        setActionBarTitle(R.string.feed_title);
 
-        adapter = new RepoAdapter(getActivity(), viewModel.repos);
+        adapter = new FeedAdapter(getActivity(), viewModel.feedItems);
         binding.listview.setAdapter(adapter);
         viewModel.refreshData();
     }

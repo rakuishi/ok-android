@@ -1,6 +1,6 @@
 package com.rakuishi.ok.di;
 
-import com.rakuishi.ok.ui.main.MainActivity;
+import com.rakuishi.ok.activity.MainActivity;
 
 import dagger.Subcomponent;
 

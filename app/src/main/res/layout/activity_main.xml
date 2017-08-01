@@ -1,6 +1,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
-        <variable name="viewModel" type="com.rakuishi.ok.ui.main.MainViewModel" />
+        <variable name="viewModel" type="com.rakuishi.ok.viewmodel.MainViewModel" />
     </data>
     <RelativeLayout
         android:layout_width="match_parent"
