@@ -34,31 +34,31 @@ public class MainViewModel extends BaseViewModel implements BottomNavigationView
     @Override
     public void onDestroy() {
         for (int i = 0; i < FRAGMENT_COUNT; i++) {
-            destroyFragment(i);
+            detachFragment(i);
         }
         commitTransaction();
         super.onDestroy();
     }
 
     @SuppressLint("CommitTransaction")
-    public void instantiateFragment(int position) {
+    public void showFragmentAndCommitTransaction(int position) {
         if (transaction == null) {
             transaction = fragmentManager.beginTransaction();
+        }
+
+        for (int i = 0; i < FRAGMENT_COUNT; i++) {
+            if (i != position) {
+                hideFragment(i);
+            }
         }
 
         String name = makeFragmentName(position);
         Fragment fragment = fragmentManager.findFragmentByTag(name);
         if (fragment != null) {
-            transaction.attach(fragment);
+            transaction.show(fragment);
         } else {
             fragment = getFragment(position);
             transaction.add(R.id.container, fragment, name);
-        }
-
-        for (int i = 0; i < FRAGMENT_COUNT; i++) {
-            if (i != position) {
-                destroyFragment(i);
-            }
         }
 
         setVisibility(fragment, true);
@@ -66,7 +66,21 @@ public class MainViewModel extends BaseViewModel implements BottomNavigationView
     }
 
     @SuppressLint("CommitTransaction")
-    private void destroyFragment(int position) {
+    private void hideFragment(int position) {
+        if (transaction == null) {
+            transaction = fragmentManager.beginTransaction();
+        }
+
+        String name = makeFragmentName(position);
+        Fragment fragment = fragmentManager.findFragmentByTag(name);
+        if (fragment != null) {
+            transaction.hide(fragment);
+            setVisibility(fragment, false);
+        }
+    }
+
+    @SuppressLint("CommitTransaction")
+    private void detachFragment(int position) {
         if (transaction == null) {
             transaction = fragmentManager.beginTransaction();
         }
@@ -128,7 +142,7 @@ public class MainViewModel extends BaseViewModel implements BottomNavigationView
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int position = getPosition(item.getItemId());
-        instantiateFragment(position);
+        showFragmentAndCommitTransaction(position);
         return true;
     }
 

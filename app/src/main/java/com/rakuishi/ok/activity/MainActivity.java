@@ -26,7 +26,7 @@ public class MainActivity extends BaseActivity {
         binding.setViewModel(viewModel);
         binding.bottomNavigationView.setOnNavigationItemSelectedListener(viewModel);
 
-        viewModel.instantiateFragment(0);
+        viewModel.showFragmentAndCommitTransaction(0);
     }
 
     @Override
