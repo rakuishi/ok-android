@@ -133,4 +133,8 @@ public class BaseFragment extends Fragment {
         this.visibility = visibility;
         if (DEBUG) Log.v(TAG, toString() + " onFragmentVisibilityChanged: " + visibility);
     }
+
+    public void onFragmentReselected() {
+        if (DEBUG) Log.v(TAG, toString() + " onFragmentReselected");
+    }
 }

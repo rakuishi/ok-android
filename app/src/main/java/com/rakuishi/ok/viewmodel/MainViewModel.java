@@ -23,7 +23,7 @@ public class MainViewModel extends BaseViewModel implements BottomNavigationView
     private static final int CONTAINER_ID = R.id.container;
     private BaseActivity activity;
     private FragmentManager fragmentManager;
-    private int primaryItem = 0;
+    private int primaryItem = -1;
 
     @Inject
     MainViewModel(BaseActivity activity) {
@@ -120,7 +120,13 @@ public class MainViewModel extends BaseViewModel implements BottomNavigationView
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int position = getPosition(item.getItemId());
-        showFragmentAndCommitTransaction(position);
+        String name = makeFragmentName(position);
+        Fragment fragment = fragmentManager.findFragmentByTag(name);
+        if (primaryItem != position || fragment == null) {
+            showFragmentAndCommitTransaction(position);
+        } else if (fragment instanceof BaseFragment) {
+            ((BaseFragment) fragment).onFragmentReselected();
+        }
         return true;
     }
 
