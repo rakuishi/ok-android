@@ -55,4 +55,10 @@ public class FeedFragment extends BaseFragment {
         super.onDetach();
         viewModel.onDestroy();
     }
+
+    @Override
+    public void onFragmentReselected() {
+        super.onFragmentReselected();
+        binding.listview.smoothScrollToPosition(0);
+    }
 }
