@@ -21,6 +21,7 @@ public class BaseFragment extends Fragment {
     private static final String TAG = "BaseFragment";
     private static final boolean DEBUG = true;
     private FragmentComponent fragmentComponent;
+    private boolean isVisibleToUser = false;
 
     @NonNull
     public FragmentComponent getComponent() {
@@ -37,6 +38,8 @@ public class BaseFragment extends Fragment {
             activity.getSupportActionBar().setTitle(resId);
         }
     }
+
+    // region Lifecycle
 
     @Override
     public void onAttach(Context context) {
@@ -103,5 +106,18 @@ public class BaseFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         if (DEBUG) Log.v(TAG, toString() + " onDetach");
+    }
+
+    // endregion
+
+    public void fireOnFragmentVisibilityChangedIfNeeded(boolean isVisibleToUser) {
+        if (isVisibleToUser != this.isVisibleToUser) {
+            onFragmentVisibilityChanged(isVisibleToUser);
+        }
+    }
+
+    public void onFragmentVisibilityChanged(boolean isVisibleToUser) {
+        this.isVisibleToUser = isVisibleToUser;
+        if (DEBUG) Log.v(TAG, toString() + " onFragmentVisibilityChanged: " + isVisibleToUser);
     }
 }

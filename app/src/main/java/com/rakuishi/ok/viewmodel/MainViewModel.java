@@ -2,7 +2,6 @@ package com.rakuishi.ok.viewmodel;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +10,7 @@ import android.view.MenuItem;
 
 import com.rakuishi.ok.R;
 import com.rakuishi.ok.activity.BaseActivity;
+import com.rakuishi.ok.fragment.BaseFragment;
 import com.rakuishi.ok.fragment.FeedFragment;
 import com.rakuishi.ok.fragment.GistFragment;
 import com.rakuishi.ok.fragment.RepoFragment;
@@ -23,7 +23,7 @@ public class MainViewModel extends BaseViewModel implements BottomNavigationView
     private static final int CONTAINER_ID = R.id.container;
     private BaseActivity activity;
     private FragmentManager fragmentManager;
-    private FragmentTransaction transaction;
+    private int primaryItem = 0;
 
     @Inject
     MainViewModel(BaseActivity activity) {
@@ -32,78 +32,56 @@ public class MainViewModel extends BaseViewModel implements BottomNavigationView
     }
 
     @Override
+    @SuppressLint("CommitTransaction")
     public void onDestroy() {
-        for (int i = 0; i < FRAGMENT_COUNT; i++) {
-            detachFragment(i);
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        for (int position = 0; position < FRAGMENT_COUNT; position++) {
+            String name = makeFragmentName(position);
+            Fragment fragment = fragmentManager.findFragmentByTag(name);
+            if (fragment != null) {
+                transaction.remove(fragment);
+            }
         }
-        commitTransaction();
+        transaction.commitNowAllowingStateLoss();
         super.onDestroy();
     }
 
     @SuppressLint("CommitTransaction")
     public void showFragmentAndCommitTransaction(int position) {
-        if (transaction == null) {
-            transaction = fragmentManager.beginTransaction();
-        }
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        primaryItem = position;
 
+        // hide
         for (int i = 0; i < FRAGMENT_COUNT; i++) {
-            if (i != position) {
-                hideFragment(i);
+            String name = makeFragmentName(i);
+            Fragment fragment = fragmentManager.findFragmentByTag(name);
+            if (i == position) {
+                // show
+                if (fragment != null) {
+                    transaction.show(fragment);
+                } else {
+                    fragment = getFragment(position);
+                    transaction.add(R.id.container, fragment, name);
+                }
+            } else {
+                // hide
+                if (fragment != null) {
+                    transaction.hide(fragment);
+                }
             }
         }
 
-        String name = makeFragmentName(position);
-        Fragment fragment = fragmentManager.findFragmentByTag(name);
-        if (fragment != null) {
-            transaction.show(fragment);
-        } else {
-            fragment = getFragment(position);
-            transaction.add(R.id.container, fragment, name);
-        }
-
-        setVisibility(fragment, true);
-        commitTransaction();
+        transaction.commitNowAllowingStateLoss();
+        updateVisibility();
     }
 
-    @SuppressLint("CommitTransaction")
-    private void hideFragment(int position) {
-        if (transaction == null) {
-            transaction = fragmentManager.beginTransaction();
-        }
-
-        String name = makeFragmentName(position);
-        Fragment fragment = fragmentManager.findFragmentByTag(name);
-        if (fragment != null) {
-            transaction.hide(fragment);
-            setVisibility(fragment, false);
-        }
-    }
-
-    @SuppressLint("CommitTransaction")
-    private void detachFragment(int position) {
-        if (transaction == null) {
-            transaction = fragmentManager.beginTransaction();
-        }
-
-        String name = makeFragmentName(position);
-        Fragment fragment = fragmentManager.findFragmentByTag(name);
-        if (fragment != null) {
-            transaction.detach(fragment);
-            setVisibility(fragment, false);
-        }
-    }
-
-    private void commitTransaction() {
-        if (transaction != null) {
-            transaction.commitNowAllowingStateLoss();
-            transaction = null;
-        }
-    }
-
-    private void setVisibility(@Nullable Fragment fragment, boolean visible) {
-        if (fragment != null) {
-            fragment.setUserVisibleHint(visible);
-            fragment.setMenuVisibility(visible);
+    private void updateVisibility() {
+        for (int position = 0; position < FRAGMENT_COUNT; position++) {
+            String name = makeFragmentName(position);
+            Fragment fragment = fragmentManager.findFragmentByTag(name);
+            if (fragment != null && fragment instanceof BaseFragment) {
+                ((BaseFragment) fragment).fireOnFragmentVisibilityChangedIfNeeded(primaryItem == position);
+            }
         }
     }
 
