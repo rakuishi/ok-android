@@ -30,19 +30,23 @@ public class RepoFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_repo, container, false);
+        super.onCreateView(inflater, container, savedInstanceState);
+
+        binding = FragmentRepoBinding.inflate(inflater, container, false);
+        binding.setViewModel(viewModel);
+        viewModel.onCreate();
+
+        setActionBarTitle(R.string.repo_title);
+
+        adapter = new RepoAdapter(getActivity(), viewModel.repos);
+        binding.listview.setAdapter(adapter);
+
+        return binding.getRoot();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        binding = FragmentRepoBinding.bind(getView());
-        binding.setViewModel(viewModel);
-        viewModel.onCreate();
-        setActionBarTitle(R.string.repo_title);
-
-        adapter = new RepoAdapter(getActivity(), viewModel.repos);
-        binding.listview.setAdapter(adapter);
         viewModel.refreshData();
     }
 
