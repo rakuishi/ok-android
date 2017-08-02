@@ -80,7 +80,7 @@ public class MainViewModel extends BaseViewModel implements BottomNavigationView
             String name = makeFragmentName(position);
             Fragment fragment = fragmentManager.findFragmentByTag(name);
             if (fragment != null && fragment instanceof BaseFragment) {
-                ((BaseFragment) fragment).fireOnFragmentVisibilityChangedIfNeeded(primaryItem == position);
+                ((BaseFragment) fragment).updateFragmentVisibilityIfNeeded(primaryItem == position);
             }
         }
     }

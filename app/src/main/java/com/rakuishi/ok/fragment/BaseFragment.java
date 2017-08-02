@@ -21,7 +21,8 @@ public class BaseFragment extends Fragment {
     private static final String TAG = "BaseFragment";
     private static final boolean DEBUG = true;
     private FragmentComponent fragmentComponent;
-    private boolean isVisibleToUser = false;
+    private boolean visibility = false;
+    private boolean shouldCheckVisibilityAfterOnResume = false;
 
     @NonNull
     public FragmentComponent getComponent() {
@@ -76,6 +77,10 @@ public class BaseFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if (DEBUG) Log.v(TAG, toString() + " onResume");
+        if (shouldCheckVisibilityAfterOnResume) {
+            shouldCheckVisibilityAfterOnResume = false;
+            onFragmentVisibilityChanged(visibility);
+        }
     }
 
     @Override
@@ -110,14 +115,22 @@ public class BaseFragment extends Fragment {
 
     // endregion
 
-    public void fireOnFragmentVisibilityChangedIfNeeded(boolean isVisibleToUser) {
-        if (isVisibleToUser != this.isVisibleToUser) {
-            onFragmentVisibilityChanged(isVisibleToUser);
+    public void updateFragmentVisibilityIfNeeded(boolean visibility) {
+        if (visibility != this.visibility) {
+            if (isResumed()) {
+                onFragmentVisibilityChanged(visibility);
+            } else {
+                shouldCheckVisibilityAfterOnResume = true;
+                this.visibility = visibility;
+            }
         }
     }
 
-    public void onFragmentVisibilityChanged(boolean isVisibleToUser) {
-        this.isVisibleToUser = isVisibleToUser;
-        if (DEBUG) Log.v(TAG, toString() + " onFragmentVisibilityChanged: " + isVisibleToUser);
+    /**
+     * `onFragmentVisibilityChanged` is called after `onResume`.
+     */
+    public void onFragmentVisibilityChanged(boolean visibility) {
+        this.visibility = visibility;
+        if (DEBUG) Log.v(TAG, toString() + " onFragmentVisibilityChanged: " + visibility);
     }
 }
