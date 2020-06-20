@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/feed"
+        android:icon="@drawable/ic_vc_feed"
+        android:title="@string/feed_title" />
+    <item
+        android:id="@+id/repo"
+        android:icon="@drawable/ic_vc_repo"
+        android:title="@string/repo_title" />
+    <item
+        android:id="@+id/gist"
+        android:icon="@drawable/ic_vc_gist"
+        android:title="@string/gist_title" />
+</menu>
