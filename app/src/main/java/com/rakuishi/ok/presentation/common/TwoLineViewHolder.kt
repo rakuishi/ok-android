@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.rakuishi.ok.R
+import com.rakuishi.ok.data.Feed
 import com.rakuishi.ok.data.Gist
 import com.rakuishi.ok.data.Repo
 import kotlinx.android.synthetic.main.list_item_two_line.view.*
@@ -23,5 +24,11 @@ class TwoLineViewHolder(parent: ViewGroup) :
         itemView.primaryTextView.text = gist.id
         itemView.secondaryTextView.text = gist.updatedAt
         itemView.backgroundLayout.setOnClickListener { onItemClick.invoke(gist) }
+    }
+
+    fun bind(feed: Feed, onItemClick: ((Feed) -> Unit)) {
+        itemView.primaryTextView.text = feed.title
+        itemView.secondaryTextView.text = feed.description
+        itemView.backgroundLayout.setOnClickListener { onItemClick.invoke(feed) }
     }
 }
