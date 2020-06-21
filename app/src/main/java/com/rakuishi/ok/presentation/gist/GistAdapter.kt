@@ -1,15 +1,15 @@
-package com.rakuishi.ok.presentation.repo
+package com.rakuishi.ok.presentation.gist
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.rakuishi.ok.data.Repo
+import com.rakuishi.ok.data.Gist
 import com.rakuishi.ok.presentation.common.TwoLineViewHolder
 
-class RepoAdapter : ListAdapter<Repo, RecyclerView.ViewHolder>(RepoDiffCallback()) {
+class GistAdapter : ListAdapter<Gist, RecyclerView.ViewHolder>(GistDiffCallback()) {
 
-    var onItemClick: ((Repo) -> Unit)? = null
+    var onItemClick: ((Gist) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return TwoLineViewHolder(parent)
@@ -22,12 +22,12 @@ class RepoAdapter : ListAdapter<Repo, RecyclerView.ViewHolder>(RepoDiffCallback(
     }
 }
 
-private class RepoDiffCallback : DiffUtil.ItemCallback<Repo>() {
-    override fun areItemsTheSame(oldItem: Repo, newItem: Repo): Boolean {
+private class GistDiffCallback : DiffUtil.ItemCallback<Gist>() {
+    override fun areItemsTheSame(oldItem: Gist, newItem: Gist): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: Repo, newItem: Repo): Boolean {
+    override fun areContentsTheSame(oldItem: Gist, newItem: Gist): Boolean {
         return oldItem == newItem
     }
 }

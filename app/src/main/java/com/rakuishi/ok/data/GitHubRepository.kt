@@ -54,4 +54,13 @@ class GitHubRepository {
             }
             .singleOrError()
     }
+
+    fun requestGists(): Single<List<Gist>> {
+        return request("https://api.github.com/users/rakuishi/gists?sort=updated")
+            .map {
+                val type = object : TypeToken<List<Gist>>() {}.type
+                gson.fromJson<List<Gist>>(it.body()?.string() ?: "[]", type)
+            }
+            .singleOrError()
+    }
 }

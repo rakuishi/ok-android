@@ -1,5 +1,6 @@
 package com.rakuishi.ok.data
 
+import com.rakuishi.ok.presentation.gist.GistViewModelFactory
 import com.rakuishi.ok.presentation.repo.RepoViewModelFactory
 
 object Injector {
@@ -10,5 +11,9 @@ object Injector {
 
     fun provideRepoViewModelFactory(): RepoViewModelFactory {
         return RepoViewModelFactory(getGitHubRepository())
+    }
+
+    fun provideGistViewModelFactory(): GistViewModelFactory {
+        return GistViewModelFactory(getGitHubRepository())
     }
 }

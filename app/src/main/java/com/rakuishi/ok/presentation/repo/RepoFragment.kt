@@ -12,7 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.rakuishi.ok.R
 import com.rakuishi.ok.data.Injector
-import kotlinx.android.synthetic.main.fragment_repo.*
+import kotlinx.android.synthetic.main.fragment_list.*
 
 class RepoFragment : Fragment() {
 
@@ -24,7 +24,7 @@ class RepoFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_repo, container, false)
+        return inflater.inflate(R.layout.fragment_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
