@@ -1,0 +1,14 @@
+package com.rakuishi.ok.data
+
+import com.rakuishi.ok.presentation.repo.RepoViewModelFactory
+
+object Injector {
+
+    private fun getGitHubRepository(): GitHubRepository {
+        return GitHubRepository.getInstance()
+    }
+
+    fun provideRepoViewModelFactory(): RepoViewModelFactory {
+        return RepoViewModelFactory(getGitHubRepository())
+    }
+}
