@@ -2,13 +2,15 @@ package com.rakuishi.ok.util
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 fun BottomNavigationView.setup(
     fragmentManager: FragmentManager,
     fragments: Array<Fragment>,
     containerId: Int
-) {
+): LiveData<Int> {
     if (menu.size() != fragments.size) {
         throw IllegalStateException(
             "menu.size(%d) is not same as fragments.size(%d).".format(
@@ -17,6 +19,7 @@ fun BottomNavigationView.setup(
         )
     }
 
+    val positionLiveData = MutableLiveData<Int>()
     val tags: ArrayList<String> = arrayListOf()
     val firstItemId = menu.getItem(0).itemId
     val firstTag = getFragmentTag(menu.getItem(0).itemId)
@@ -35,6 +38,7 @@ fun BottomNavigationView.setup(
             fragmentManager.beginTransaction()
                 .attach(fragment)
                 .commitNow()
+            positionLiveData.value = i
         } else {
             fragmentManager.beginTransaction()
                 .detach(fragment)
@@ -70,6 +74,7 @@ fun BottomNavigationView.setup(
             }
 
             selectedTag = newlySelectedItemTag
+            positionLiveData.value = getMenuPosition(selectedTag)
 
             true
         }
@@ -78,8 +83,21 @@ fun BottomNavigationView.setup(
     fragmentManager.addOnBackStackChangedListener {
         if (firstTag != selectedTag && !fragmentManager.isOnBackStack(firstTag)) {
             selectedItemId = firstItemId
+            positionLiveData.value = 0
         }
     }
+
+    return positionLiveData
+}
+
+private fun BottomNavigationView.getMenuPosition(tag: String): Int {
+    for (i in 0 until menu.size()) {
+        if (tag == getFragmentTag(menu.getItem(i).itemId)) {
+            return i
+        }
+    }
+
+    throw IllegalStateException("%s is not registered in BottomNavigationView.".format(tag))
 }
 
 private fun FragmentManager.isOnBackStack(backStackName: String): Boolean {

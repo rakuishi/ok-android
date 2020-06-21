@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:maxLines="1"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textStyle="bold"
         tools:text="Primary Text" />
 
     <TextView
@@ -22,7 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/primaryTextView"
-        android:maxLines="1"
+        android:layout_marginTop="4dp"
+        android:maxLines="3"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         tools:text="Secondary Text" />
 
