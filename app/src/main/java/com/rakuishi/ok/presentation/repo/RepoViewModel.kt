@@ -1,9 +1,9 @@
 package com.rakuishi.ok.presentation.repo
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.rakuishi.ok.data.GitHubRepository
 import com.rakuishi.ok.data.Repo
+import com.rakuishi.ok.util.RequestLiveData
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -13,28 +13,24 @@ class RepoViewModel internal constructor(
 ) : ViewModel() {
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-    val repos: MutableLiveData<List<Repo>> = MutableLiveData(arrayListOf())
-    val throwable: MutableLiveData<Throwable> = MutableLiveData()
-    val isLoading: MutableLiveData<Boolean> = MutableLiveData(true)
+    val requestLiveData: RequestLiveData<List<Repo>> = RequestLiveData()
 
     init {
         requestRepos()
     }
 
-    private fun requestRepos() {
-        isLoading.value = true
+    fun requestRepos() {
+        requestLiveData.setLoading()
 
         compositeDisposable.add(
             gitHubRepository.requestRepos()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { repos, throwable ->
-                    this.isLoading.value = false
-
                     if (throwable == null) {
-                        this.repos.value = repos
+                        requestLiveData.setSuccess(repos)
                     } else {
-                        this.throwable.value = throwable
+                        requestLiveData.setFailure(throwable)
                     }
                 })
     }

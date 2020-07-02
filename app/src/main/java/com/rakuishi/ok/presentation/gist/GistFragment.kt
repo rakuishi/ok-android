@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.rakuishi.ok.R
 import com.rakuishi.ok.data.Injector
+import com.rakuishi.ok.util.RequestLiveData
 import kotlinx.android.synthetic.main.fragment_list.*
 
 class GistFragment : Fragment() {
@@ -35,20 +36,29 @@ class GistFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
 
+        swipeRefreshLayout.setOnRefreshListener { viewModel.requestGists() }
+
         subscribeUi()
     }
 
     private fun subscribeUi() {
-        viewModel.gists.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-        })
-
-        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
-            progressBar.visibility = if (it) View.VISIBLE else View.GONE
-        })
-
-        viewModel.throwable.observe(viewLifecycleOwner, Observer {
-            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+        viewModel.requestLiveData.observe(viewLifecycleOwner, Observer {
+            when (it.state) {
+                RequestLiveData.State.LOADING -> {
+                    progressBar.visibility = View.VISIBLE
+                }
+                RequestLiveData.State.SUCCESS -> {
+                    progressBar.visibility = View.GONE
+                    swipeRefreshLayout.isRefreshing = false
+                    adapter.submitList(it.data)
+                }
+                RequestLiveData.State.FAILURE -> {
+                    progressBar.visibility = View.GONE
+                    swipeRefreshLayout.isRefreshing = false
+                    Toast.makeText(requireContext(), it.throwable?.message, Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
         })
     }
 }
