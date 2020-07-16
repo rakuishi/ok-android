@@ -11,13 +11,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.rakuishi.ok.R
-import com.rakuishi.ok.data.Injector
 import com.rakuishi.ok.util.RequestLiveData
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_list.*
 
+@AndroidEntryPoint
 class GistFragment : Fragment() {
 
-    private val viewModel: GistViewModel by viewModels { Injector.provideGistViewModelFactory() }
+    private val viewModel: GistViewModel by viewModels()
     private val adapter: GistAdapter = GistAdapter()
 
     override fun onCreateView(

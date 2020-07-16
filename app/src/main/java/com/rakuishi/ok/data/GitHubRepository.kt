@@ -9,19 +9,6 @@ import okhttp3.OkHttpClient
 
 class GitHubRepository {
 
-    companion object {
-
-        // For Singleton instantiation
-        @Volatile
-        private var instance: GitHubRepository? = null
-
-        fun getInstance(): GitHubRepository {
-            return instance ?: synchronized(this) {
-                instance ?: GitHubRepository().also { instance = it }
-            }
-        }
-    }
-
     private val okHttpClient: OkHttpClient = OkHttpClient()
     private val gson: Gson = Gson()
 

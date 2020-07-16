@@ -8,8 +8,10 @@ import com.rakuishi.ok.presentation.feed.FeedFragment
 import com.rakuishi.ok.presentation.gist.GistFragment
 import com.rakuishi.ok.presentation.repo.RepoFragment
 import com.rakuishi.ok.util.setup
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

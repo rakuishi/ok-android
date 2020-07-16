@@ -1,5 +1,8 @@
 package com.rakuishi.ok.presentation.gist
 
+import androidx.hilt.Assisted
+import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.rakuishi.ok.data.Gist
 import com.rakuishi.ok.data.GitHubRepository
@@ -8,8 +11,9 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class GistViewModel internal constructor(
-    private val gitHubRepository: GitHubRepository
+class GistViewModel @ViewModelInject constructor(
+    private val gitHubRepository: GitHubRepository,
+    @Assisted private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()

@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion 30
@@ -59,4 +61,11 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
 
     implementation 'androidx.browser:browser:1.2.0'
+
+    // Dagger Hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:${hilt_view_model_version}"
+    kapt "androidx.hilt:hilt-compiler:${hilt_view_model_version}"
 }

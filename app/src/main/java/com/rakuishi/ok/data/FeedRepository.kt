@@ -8,19 +8,6 @@ import org.simpleframework.xml.core.Persister
 
 class FeedRepository {
 
-    companion object {
-
-        // For Singleton instantiation
-        @Volatile
-        private var instance: FeedRepository? = null
-
-        fun getInstance(): FeedRepository {
-            return instance ?: synchronized(this) {
-                instance ?: FeedRepository().also { instance = it }
-            }
-        }
-    }
-
     private val okHttpClient: OkHttpClient = OkHttpClient()
     private val persister: Persister = Persister()
 
